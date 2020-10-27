@@ -1,5 +1,6 @@
 package com.gx.sunnyweather.ui.place
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.gx.sunnyweather.R
 import com.gx.sunnyweather.logic.model.Place
-import com.gx.sunnyweather.ui.RecyclerViewUtil.SpacesItemDecoration
+import com.gx.sunnyweather.ui.WeatherActivity
 
 
 class PlaceAdapter(private val fragment: PlaceFragment, private val placeList: List<Place>) :
@@ -19,8 +20,27 @@ class PlaceAdapter(private val fragment: PlaceFragment, private val placeList: L
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_place_item, parent, false)
-        return ViewHolder(view)
+        val view = LayoutInflater
+            .from(parent.context)
+            .inflate(R.layout.fragment_place_item, parent, false)
+
+        val holder = ViewHolder(view)
+
+        holder.itemView.setOnClickListener {
+            val position = holder.adapterPosition
+            val place = placeList[position]
+            val intent = Intent(parent.context, WeatherActivity::class.java).apply{
+                putExtra("location_lng", place.loc.longitude)
+                putExtra("location_lat", place.loc.latitude)
+                putExtra("place_name", place.name)
+            }
+
+            fragment.viewModel.savePlace(place)
+            fragment.startActivity(intent)
+            fragment.activity?.finish()
+        }
+
+        return holder
     }
 
     override fun getItemCount() = placeList.size

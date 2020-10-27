@@ -2,4 +2,10 @@
     <string name="app_name">SunnyWeather</string>
     <string name="searchPlaceEdit">请输入地址</string>
     <string name="bgImageView">搜索背景</string>
+    <string name="forecast">预 报</string>
+    <string name="lifeIndex">生活指数</string>
+    <string name="coldRisk">感 冒</string>
+    <string name="dressing">穿 衣</string>
+    <string name="ultraviolet">紫外线</string>
+    <string name="carWashing">洗 车</string>
 </resources>
