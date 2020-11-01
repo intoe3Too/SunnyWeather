@@ -26,10 +26,22 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    //编译时自动签名配置
+    signingConfigs{
+        config{
+            storeFile file(KEY_PATH)
+            storePassword KEY_PASS
+            keyAlias = ALIAS_NAME
+            keyPassword ALIAS_PASS
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            //在build时启用上面的自动签名配置
+            signingConfig signingConfigs.config
         }
     }
 }
